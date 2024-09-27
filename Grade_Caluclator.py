@@ -35,4 +35,4 @@ midterms = grading(average_midterms, 25)
 mid_final_prep_wgr = grading(mid_and_final, 6)
 final_wgr = grading(Final, 18)
 
-
+print(' Your final grade : ', :tot_grade())
