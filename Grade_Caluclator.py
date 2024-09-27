@@ -12,18 +12,19 @@ def tot_grade() -> float:
 
 
 # inputting grades 
-lab = input('Enter the number of labs completed: ')
-quiz = input('Enter the number of quizzes completed: ')
+
+lab: str = input('Enter the number of labs completed: ')
+quiz: str = input('Enter the number of quizzes completed: ')
 
 print('Enter your grade for the following assessments')
-asgn_1 = float(input('Assignment 1: '))
-asgn_2 = float(input('Assignment 2: '))
-asgn_3 = float(input('Assignment 3: '))
-asgn_4 = float(input('Assignment 4: '))
-midterm1 = float(input('Midterm 1: '))
-midterm2 = float(input('Midterm 2: '))
-Final = float(input('Final Exam: '))
-mid_and_final = float(input('Midterms + Final Preparation: '))
+asgn_1: float = float(input('Assignment 1: '))
+asgn_2: float = float(input('Assignment 2: '))
+asgn_3: float = float(input('Assignment 3: '))
+asgn_4: float = float(input('Assignment 4: '))
+midterm1: float = float(input('Midterm 1: '))
+midterm2: float = float(input('Midterm 2: '))
+Final: float = float(input('Final Exam: '))
+mid_and_final: float = float(input('Midterms + Final Preparation: '))
 
 # computing total grades (wgr = weighted grade, asgn = assignment)
 lab_wgr = grading(lab, 20)
