@@ -11,11 +11,12 @@ def total() -> float:
 
 
 # inputting grades (asgn = assignment)
-print('Enter only numerical values.')
-lab: str = input('Enter the number of labs completed: ')
-quiz: str = input('Enter the number of quizzes completed: ')
-print("
-        Enter your grades for the following assessments.")
+print("Welcome to the ITP course's grade calculator\n    ")
+print('Enter ONLY numerical values in the following  prompts.')
+lab: str = input('The number of labs completed: ')
+quiz: str = input('The number of quizzes completed: ')
+print()
+print("Enter your grades for the following assessments.")
 asgn_1: float = float(input('Assignment 1: '))
 asgn_2: float = float(input('Assignment 2: '))
 asgn_3: float = float(input('Assignment 3: '))
@@ -35,8 +36,4 @@ midterms = grading(average_midterms, 25)
 mid_final_prep_wgr = grading(mid_and_final, 6)
 final_wgr = grading(Final, 18)
 
-tot_grade = str(total())
-second_decimal = tot_grade[5:6]
-desired_digits = tot_grade[:5]
-rounded_tot_grade = float(desired_digits) + 0.01 if second_decimal >= 5 else float(desired_digits) 
-print('Your final grade for the course : ', rounded_tot_grade, '%')
+print(f'Your final grade for the course: {round(total(), 2)}  %')
