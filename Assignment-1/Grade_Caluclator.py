@@ -14,8 +14,8 @@ def total() -> float:
 print('Enter only numerical values.')
 lab: str = input('Enter the number of labs completed: ')
 quiz: str = input('Enter the number of quizzes completed: ')
-print('
-Enter your grades for the following assessments.')
+print("
+        Enter your grades for the following assessments.")
 asgn_1: float = float(input('Assignment 1: '))
 asgn_2: float = float(input('Assignment 2: '))
 asgn_3: float = float(input('Assignment 3: '))
