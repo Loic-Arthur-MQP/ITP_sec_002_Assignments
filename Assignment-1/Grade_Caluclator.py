@@ -1,5 +1,5 @@
-# all grading functions
-def grading(grade, weight: float) -> float:
+# Grading functions
+def grading(grade, weight: int) -> float:
     if grade == lab or grade == quiz:
         return weight * int(grade) / 6 if int(grade) <= 6 else weight
     else:
