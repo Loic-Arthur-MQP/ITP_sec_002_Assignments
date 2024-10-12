@@ -137,8 +137,8 @@ def play_game():
             if ask_shuffle in response:
                 random.shuffle(p1_deck)
                 random.shuffle(p2_deck)
-                count = 0
                 time.sleep(0.5)
+            count = 0
         if g_count >= 100:
             ask_end = input('You have been playing for some time now. Do you want to end ?\n ')
             if ask_end in response:
@@ -146,6 +146,7 @@ def play_game():
                 break
             else:
                 print('Go Crazy')
+                g_count = 0
                 time.sleep(0.5)
 
     if not result:
