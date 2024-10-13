@@ -71,7 +71,7 @@ def play_round(player1_hand: list, player2_hand: list):
         p2_deck.extend([p1_card, p2_card])
     else:
         time.sleep(0.5)
-        print('\n WAR !!!!')
+        print('\nWAR !!!!')
         time.sleep(0.5)
         result = war(player1_hand, player2_hand, p1_card, p2_card, p1_quintuplets, p2_quintuplets)
     if result:
@@ -81,8 +81,9 @@ def play_round(player1_hand: list, player2_hand: list):
 
 
 def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
-    print(f'{random.choice(modifiers2)}')
     time.sleep(0.5)
+    print(f'{random.choice(modifiers2)}')
+    time.sleep(3.5)
     if war_chain:
         war_deck1.append(p1_card)
         war_deck2.append(p2_card)
@@ -106,8 +107,8 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
 
     if result == 0:
         war_chain.remove(1)
-        time.sleep(0.5)
-        print(f'\n {random.choice(modifiers)} WAR !!!!')
+        time.sleep(2)
+        print(f'\n{random.choice(modifiers)} WAR !!!!')
         war(player1_hand, player2_hand, war_deck1[-1], war_deck2[-1], war_deck1, war_deck2)
     elif result == 1:
         p1_deck.extend(war_deck2 + war_deck1)
