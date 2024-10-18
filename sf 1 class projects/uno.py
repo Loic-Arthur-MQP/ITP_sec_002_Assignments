@@ -27,7 +27,7 @@ discard_pile = [choosing_central()]
 p_deck = [deck.pop(0) for _ in range(7)]
 com_deck = [deck.pop(0) for _ in range(7)]
 
-whose_turn = random.choice([0, 1])
+whose_turn = random.choice([0, 1]) # we take 0 = computer , 1 = player
 
 
 def computer_play(com_hand: list, central_card: tuple):
@@ -49,7 +49,7 @@ def computer_play(com_hand: list, central_card: tuple):
 def valid_play(p_hand: list, central_card: tuple):
     time.sleep(1)
     print(p_hand)
-    play_decision = input('Play (1) or Draw (0) : ')
+    play_decision = input('Play (1) or Draw (0) : ') # call uno, call out a player  
     if play_decision:
         time.sleep(0.5)
         p_choice = int(input('Choose which card to play : ')) - 1
@@ -58,9 +58,12 @@ def valid_play(p_hand: list, central_card: tuple):
             action_special_cards(p_card)  # calling function to implement the action card
 
         elif p_card in power_cards:
-            action_power_cards(p_card)
+            valid_colour = action_power_cards(p_card) 
+            return valid_colour
+
         elif p_card[0] == central_card[0] or p_card[1] == central_card[1]:
             discard_pile.append(p_card)
+
         else:
             print("You can't play that card! 2 cards penalty")
             time.sleep(0.5)
@@ -72,28 +75,45 @@ def valid_play(p_hand: list, central_card: tuple):
         whose_turn = 2
 
 
-def action_power_cards(card, whose_turn):  # implementing Action cards for power_cards
-    player = who_is_playing(whose_turn)
+def change_colour(_whose_turn):
+    com_colours = [com_deck[_][0] for _ in range(len(com_deck)) if com_deck[_][0] in colours[:-1]]
+    colour_choice = input('Choose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if whose_turn else random.choice[com_colours]
+
+    player_colours = ('r','b','g', 'y')
+    colour_choice = colours[player_colours.index(colour_choice)]
+    return colour_choice
+
+
+def action_power_cards(card, _whose_turn):  # implementing Action cards for power_cards
+    player = who_is_playing(not whose_turn)
+    colour_choice = change_colour(_whose_turn)
+    
     if card[1] == '+4':
-        player.extend([deck.pop(0) for _ in range(4)])
+        player.extend([deck.pop(0) for _ in range(4)])i
+        colour_choice = change_colour(_whose_turn)
+
     else:
-        com_colours = [com_deck[_][0] for _ in range(len(com_deck)) if com_deck[_][0] in colours[:-1]]
         player_colours = ('r','b','g', 'y')
-        colour_choice = input('Choose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if whose_turn else random.choice[com_colours]
-        colour_choice = colours[player_colours.index(colour_choice)]
-        discard_pile.append((colour_choice,'')) # i can't append to the discard file, it's like adding another card. Try making wild match to a colour
+        colour_choice = change_colour(_whose_turn)
+        
+    return colour_choice
 
 
-
-def action_special_cards(card):  # implementing Action cards for special cards
-    return
+def action_special_cards(card, _whose_turn):  # implementing Action cards for special cards
+    player = who_is_playing(_whose_turn)
+    colour_choice = change_colour(_whose_turn
+    if card[1] == wilds_ranks[4]:
+        player.append(card)
+    elif card[1] == wilds_rank[5]:
+        whose_turn = (whose_turn + 1) % 2 # try to change this to make whose turn not to change here
+                                  return colour_choice 
 
 
 def who_is_playing(_whose_turn):
     return p_deck if _whose_turn else com_deck
 
 def main_game_run():
-    while p_deck != [] and com_deck != []:
+    while p_deck and com_deck:
         while whose_turn == 1:
             valid_play()
         while whose_turn == 2:
