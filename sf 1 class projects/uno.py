@@ -39,10 +39,10 @@ discard_pile = [choosing_central()]
 whose_turn = random.choice([False, True])  # we take False(0) = computer , True(1) = player
 
 # start messages
-print('UNO'), time.sleep(2)
-print('Shuffling cards'), time.sleep(6)
-print('Sharing cards'), time.sleep(4)
-print('\nSTART'), time.sleep(1)
+print('UNO'), time.sleep(1)
+print('Shuffling cards'), time.sleep(2)
+print('Sharing cards'), time.sleep(2)
+print('\nSTART'), time.sleep(0.5)
 print(f'middle card -> {discard_pile[-1][0]}')
 
 
@@ -75,7 +75,7 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
     if not played:
         for card in com_hand:
             if card in special_cards:
-                time.sleep(1), print(f'\ncomputer plays {card[0]}')
+                time.sleep(1), print(f'\ncomputer plays -----> {card[0]}')
                 discard_pile.append(com_hand.pop(com_hand.index(card)))
                 played = True
                 if com_hand:
@@ -94,17 +94,17 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
 # Defines how the User will play
 def valid_play(p_hand: list, central_card: tuple, _whose_turn: bool):
     time.sleep(0.5)
-    print(f'\nHere are your cards'), time.sleep(1.2)
+    print(f'\nHere are your cards'), time.sleep(0.6)
     print(
         '________________________________________________________________________________________________________________________________________________________________')
     print(f'{[f'{p_hand.index(card) + 1}{(card[0])}' for card in p_hand]}')
     print(
         '________________________________________________________________________________________________________________________________________________________________')
-    time.sleep(1.5)
+    time.sleep(0.5)
     p_choice = int(input(
         '\nChoose the card\'s number to PLAY the card (it\'s the number after ")  \n**OR** enter 0 to DRAW : ')) - 1
     if p_choice + 1:
-        p_card = p_hand.pop(p_choice % len(p_hand))
+        p_card = p_hand.pop(p_choice % len(p_hand))  # makes sure user don't take card more than index
 
         if p_card in special_cards:
             discard_pile.append(p_card)
@@ -142,8 +142,7 @@ def change_colour(_whose_turn):  # is called when we have a wild card in the gam
     com_colours = [com_deck[_][0][0] for _ in range(len(com_deck)) if com_deck[_][0][0] in colours[:-1]]
     time.sleep(0.5)
     colour_choice = input(
-        '\nChoose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if _whose_turn else random.choice(
-        com_colours)
+        '\nChoose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if _whose_turn else ( random.choice(com_colours) if com_colours else 'red' )
 
     player_colours = ('r', 'b', 'g', 'y')  # r matches to red in colours in player_colours.index(colour_choice)
     colour_choice = colours[player_colours.index(colour_choice)] if _whose_turn else colour_choice
@@ -217,16 +216,16 @@ def main_game_run(_whose_turn):
         if _whose_turn:
             _whose_turn = valid_play(p_deck, discard_pile[-1], _whose_turn)
             if len(p_deck) == 1:
-                time.sleep(1.2), print("\nYour UNO")
+                time.sleep(1), print("\n>>> YOUR UNO <<<")
             time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
         else:
             _whose_turn = computer_play(com_deck, discard_pile[-1], _whose_turn)
             if len(com_deck) == 1:
-                time.sleep(1.2), print("\nCOMPUTER's UNO")
+                time.sleep(1), print("\n>>> COMPUTER's UNO <<<")
             time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
 
     time.sleep(0.5), print('OUT !!')
-    time.sleep(2)
+    time.sleep(1)
     return f'\nComputer won' if p_deck else f'\nYou won !!'
 
 
