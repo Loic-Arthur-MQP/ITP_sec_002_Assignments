@@ -176,10 +176,10 @@ def wild_special_cards(card, _whose_turn):  # implementing Action cards for spec
             time.sleep(1)
             ans = int(input('\nWhich card do you want to give? ')) - 1
             pur_card = player.pop(ans)
-            time.sleep(1.5), print(f'\nYou gave {pur_card}')
+            time.sleep(1.5), print(f'\nYou gave {pur_card[0]}')
         else:
             pur_card = random.choice(com_deck)
-            time.sleep(1.5), print(f'\nYou received {pur_card}')
+            time.sleep(1.5), print(f'\nYou received {pur_card[0]}')
         player = who_is_playing((not _whose_turn))
         player.append(pur_card)
 
