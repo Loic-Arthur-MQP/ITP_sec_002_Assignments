@@ -39,10 +39,17 @@ discard_pile = [choosing_central()]
 whose_turn = random.choice([False, True])  # we take False(0) = computer , True(1) = player
 
 # start messages
+<<<<<<< Updated upstream
 print('UNO'), time.sleep(1)
 print('Shuffling cards'), time.sleep(2)
 print('Sharing cards'), time.sleep(2)
 print('\nSTART'), time.sleep(0.5)
+=======
+print('UNO'), time.sleep(2)
+print('Shuffling cards'), time.sleep(6)
+print('Sharing cards'), time.sleep(4)
+print('\nSTART'), time.sleep(1)
+>>>>>>> Stashed changes
 print(f'middle card -> {discard_pile[-1][0]}')
 
 
@@ -63,10 +70,17 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
                 break
 
     if not played:
+<<<<<<< Updated upstream
         for card in com_hand:
             if card in power_cards:
                 time.sleep(1), print(f'\ncomputer plays {card[0]}')
                 discard_pile.append(com_hand.pop(com_hand.index(card)))
+=======
+        for i, card in enumerate(com_hand):
+            if card in power_cards:
+                time.sleep(1), print(f'\ncomputer plays {card[0]}')
+                discard_pile.append(com_hand.pop(i))
+>>>>>>> Stashed changes
                 played = True
                 if com_hand:
                     _whose_turn = wild_power_cards(card, False)
@@ -75,7 +89,11 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
     if not played:
         for card in com_hand:
             if card in special_cards:
+<<<<<<< Updated upstream
                 time.sleep(1), print(f'\ncomputer plays -----> {card[0]}')
+=======
+                time.sleep(1), print(f'\ncomputer plays {card[0]}')
+>>>>>>> Stashed changes
                 discard_pile.append(com_hand.pop(com_hand.index(card)))
                 played = True
                 if com_hand:
@@ -92,19 +110,33 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
 
 
 # Defines how the User will play
+<<<<<<< Updated upstream
 def valid_play(p_hand: list, central_card: tuple, _whose_turn: bool):
     time.sleep(0.5)
     print(f'\nHere are your cards'), time.sleep(0.6)
+=======
+def user_play(p_hand: list, central_card: tuple, _whose_turn: bool):
+    time.sleep(0.5)
+    print(f'\nHere are your cards'), time.sleep(1.2)
+>>>>>>> Stashed changes
     print(
         '________________________________________________________________________________________________________________________________________________________________')
     print(f'{[f'{p_hand.index(card) + 1}{(card[0])}' for card in p_hand]}')
     print(
         '________________________________________________________________________________________________________________________________________________________________')
+<<<<<<< Updated upstream
     time.sleep(0.5)
     p_choice = int(input(
         '\nChoose the card\'s number to PLAY the card (it\'s the number after ")  \n**OR** enter 0 to DRAW : ')) - 1
     if p_choice + 1:
         p_card = p_hand.pop(p_choice % len(p_hand))  # makes sure user don't take card more than index
+=======
+    time.sleep(1.5)
+    p_choice = int(input(
+        '\nChoose the card\'s number to PLAY the card (it\'s the number after ")  \n**OR** enter 0 to DRAW : ')) - 1
+    if p_choice + 1:
+        p_card = p_hand.pop(p_choice % len(p_hand))
+>>>>>>> Stashed changes
 
         if p_card in special_cards:
             discard_pile.append(p_card)
@@ -142,7 +174,12 @@ def change_colour(_whose_turn):  # is called when we have a wild card in the gam
     com_colours = [com_deck[_][0][0] for _ in range(len(com_deck)) if com_deck[_][0][0] in colours[:-1]]
     time.sleep(0.5)
     colour_choice = input(
-        '\nChoose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if _whose_turn else ( random.choice(com_colours) if com_colours else 'red' )
+<<<<<<< Updated upstream
+        '\nChoose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if _whose_turn else (random.choice(com_colours) if com_colours else 'red')
+=======
+        '\nChoose the next colour: blue(b) green(g) red(r) yellow(y) -> ') if _whose_turn else random.choice(
+        com_colours)
+>>>>>>> Stashed changes
 
     player_colours = ('r', 'b', 'g', 'y')  # r matches to red in colours in player_colours.index(colour_choice)
     colour_choice = colours[player_colours.index(colour_choice)] if _whose_turn else colour_choice
@@ -177,10 +214,17 @@ def wild_special_cards(card, _whose_turn):  # implementing Action cards for spec
         if _whose_turn:
             ans = int(input('\nWhich card do you want to give? ')) - 1
             pur_card = player.pop(ans)
+<<<<<<< Updated upstream
             time.sleep(1.5), print(f'\nYou gave {pur_card}')
         else:
             pur_card = random.choice(com_deck)
             time.sleep(1.5), print(f'\nYou received {pur_card}')
+=======
+            time.sleep(1.5), print(f'\nYou gave {pur_card[0]}')
+        else:
+            pur_card = random.choice(com_deck)
+            time.sleep(1.5), print(f'\nYou received {pur_card[0]}')
+>>>>>>> Stashed changes
         player = who_is_playing((not _whose_turn))
         player.append(pur_card)
 
@@ -214,18 +258,32 @@ def main_game_run(_whose_turn):
             deck.extend([discard_pile.pop(0) for _ in range(len(discard_pile) - 2)])
             random.shuffle(deck)
         if _whose_turn:
+<<<<<<< Updated upstream
             _whose_turn = valid_play(p_deck, discard_pile[-1], _whose_turn)
             if len(p_deck) == 1:
                 time.sleep(1), print("\n>>> YOUR UNO <<<")
+=======
+            _whose_turn = user_play(p_deck, discard_pile[-1], _whose_turn)
+            if len(p_deck) == 1:
+                time.sleep(1.2), print("\nYour UNO")
+>>>>>>> Stashed changes
             time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
         else:
             _whose_turn = computer_play(com_deck, discard_pile[-1], _whose_turn)
             if len(com_deck) == 1:
+<<<<<<< Updated upstream
                 time.sleep(1), print("\n>>> COMPUTER's UNO <<<")
             time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
 
     time.sleep(0.5), print('OUT !!')
     time.sleep(1)
+=======
+                time.sleep(1.2), print("\nCOMPUTER's UNO")
+            time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
+
+    time.sleep(0.5), print('OUT !!')
+    time.sleep(2)
+>>>>>>> Stashed changes
     return f'\nComputer won' if p_deck else f'\nYou won !!'
 
 
