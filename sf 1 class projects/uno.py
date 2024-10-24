@@ -83,7 +83,7 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
                 break
 
     if not played:
-        time.sleep(1), print('\ncomputer draws from deck')
+        time.sleep(1), print('\ncomputer draws from deck \f')
         com_hand.append(deck.pop())
 
     time.sleep(1.2)
@@ -99,7 +99,7 @@ def valid_play(p_hand: list, central_card: tuple, _whose_turn: bool):
     print(f'{[f'{i + 1}{(card[0])}' for i, card in enumerate(p_hand)]}')
     print('______________________________________________________________________________________________________________________________________________________________')
     time.sleep(0.5)
-    p_choice = int(input('\nChoose the card\'s number to PLAY the card :  Enter 0 to DRAW : ')) - 1
+    p_choice = int(input('\nChoose the card\'s number to PLAY the card : \nEnter 0 to DRAW : ')) - 1
     if p_choice + 1:
         p_card = p_hand.pop(p_choice % len(p_hand))  # makes sure user don't take card more than index
 
@@ -127,7 +127,7 @@ def valid_play(p_hand: list, central_card: tuple, _whose_turn: bool):
             p_hand.append(deck.pop(0))
 
     else:
-        print('\nyou draw 1 from deck')
+        print('\nyou draw from deck \f')
         p_hand.append(deck.pop(0))
 
     time.sleep(1.2)
@@ -156,9 +156,9 @@ def wild_power_cards(card, _whose_turn):  # implementing Action cards for wild +
     discard_pile[-1][1] = colour_choice  # Changes the colour for wild cards
 
     if card[0][1] == '+4':
-        time.sleep(2)
+        time.sleep(1.8)
         print('computer draw 4 cards') if _whose_turn else print('you draw 4')
-        time.sleep(2)
+        time.sleep(1.8)
         print('Play again') if _whose_turn else print('Your turn is skipped')
         player.extend([deck.pop(0) for _ in range(4)])
         _whose_turn = not _whose_turn
@@ -196,7 +196,7 @@ def coloured_power_card(card, _whose_turn):
         player.append(deck.pop(0))
         time.sleep(1), print('\ncomputer draws 2 cards') if _whose_turn else print('\nYou draw 2')
 
-    time.sleep(0.7), print('\nYou play gain') if _whose_turn else print('\nYour turn is skipped')
+    time.sleep(0.7), print('\nPlay gain') if _whose_turn else print('\nYour turn is skipped')
 
     _whose_turn = not _whose_turn
     return _whose_turn
@@ -216,12 +216,12 @@ def main_game_run(_whose_turn):
             _whose_turn = valid_play(p_deck, discard_pile[-1], _whose_turn)
             if len(p_deck) == 1:
                 time.sleep(1), print("\n>>> YOUR UNO <<<")
-            time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
+            time.sleep(0.5), print(f'middle card -> {discard_pile[-1][0]}')
         else:
             _whose_turn = computer_play(com_deck, discard_pile[-1], _whose_turn)
             if len(com_deck) == 1:
                 time.sleep(1), print("\n>>> COMPUTER's UNO <<<")
-            time.sleep(0.7), print(f'middle card -> {discard_pile[-1][0]}')
+            time.sleep(0.5), print(f'middle card -> {discard_pile[-1][0]}')
 
     time.sleep(0.5), print('OUT !!')
     time.sleep(1)
