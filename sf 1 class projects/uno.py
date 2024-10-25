@@ -51,8 +51,8 @@ print(f'middle card -----> {discard_pile[-1][0]}')
 def computer_play(com_hand: list, central_card: list, _whose_turn):
     played = False  # decides if the computer played or not
     if not played:
-        for i, card in enumerate(com_hand):
-            if (card[0][1] == central_card[0][1] or card[1] == central_card[1]) and card[0][0] != colours[-1]:  # check if card is valid and is normal
+        for i, card in enumerate(com_hand):  # check if card is valid and is normal
+            if (card[0][1] == central_card[0][1] or card[1] == central_card[1]) and card[0][0] != colours[-1]:
                 time.sleep(1), print(f'\ncomputer plays -----> {card[0]}')
                 discard_pile.append(com_hand.pop(i))
                 played = True
@@ -95,9 +95,11 @@ def computer_play(com_hand: list, central_card: list, _whose_turn):
 def valid_play(p_hand: list, central_card: tuple, _whose_turn: bool):
     time.sleep(0.5)
     print(f'\nHere are your cards'), time.sleep(0.6)
-    print('______________________________________________________________________________________________________________________________________________________________')
-    print(f'{[f'{i + 1}{(card[0])}' for i, card in enumerate(p_hand)]}')
-    print('______________________________________________________________________________________________________________________________________________________________')
+    print(
+        '______________________________________________________________________________________________________________________________________________________________')
+    print([f'{i + 1}{card[0]}' for i, card in enumerate(p_hand)])
+    print(
+        '______________________________________________________________________________________________________________________________________________________________')
     time.sleep(0.5)
     p_choice = int(input('\nChoose the card\'s number to PLAY the card : \nEnter 0 to DRAW : ')) - 1
     if p_choice + 1:
@@ -156,6 +158,7 @@ def wild_power_cards(card, _whose_turn):  # implementing Action cards for wild +
     discard_pile[-1][1] = colour_choice  # Changes the colour for wild cards
 
     if card[0][1] == '+4':
+        deck_from_pile()
         time.sleep(1.8)
         print('computer draw 4 cards') if _whose_turn else print('you draw 4')
         time.sleep(1.8)
@@ -190,7 +193,8 @@ def wild_special_cards(card, _whose_turn):  # implementing Action cards for spec
 
 
 def coloured_power_card(card, _whose_turn):
-    if card[0][1] == '+2':
+    if card[0][1] == '+2':  # add a function that shuffles the deck if we want to draw when it's length is 1
+        deck_from_pile()
         player = who_is_playing(not _whose_turn)
         player.append(deck.pop(0))
         player.append(deck.pop(0))
@@ -206,12 +210,18 @@ def who_is_playing(_whose_turn):
     return p_deck if _whose_turn else com_deck
 
 
+def deck_from_pile():
+    if len(deck) <= 4:
+        time.sleep(2), print('\nGenerating deck from discard pile')
+        deck.extend([discard_pile.pop(0) for _ in range(len(discard_pile) - 2)])
+        random.shuffle(deck)
+    return deck
+
+
 # Maintains the game running until one win
 def main_game_run(_whose_turn):
     while p_deck and com_deck:
-        if len(deck) == 0:
-            deck.extend([discard_pile.pop(0) for _ in range(len(discard_pile) - 2)])
-            random.shuffle(deck)
+        deck_from_pile()
         if _whose_turn:
             _whose_turn = valid_play(p_deck, discard_pile[-1], _whose_turn)
             if len(p_deck) == 1:
