@@ -21,9 +21,9 @@ import time
 print('''PEACE
 Shuffling the cards ...
     ''')
-time.sleep(10)
+time.sleep(6)
 print('Sharing the cards...')
-time.sleep(5)
+time.sleep(3)
 
 # Setting up useful English expressions
 modifiers = ['One more', 'Another', 'Again!!!', 'Infinite', 'Brutal', 'Non stop', 'An extra', 'A further', 'World',
