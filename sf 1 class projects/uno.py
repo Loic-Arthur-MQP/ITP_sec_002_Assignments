@@ -177,8 +177,10 @@ def wild_special_cards(card, _whose_turn):  # implementing Action cards for spec
     if card[0][1] == wilds_rank[-2]:  # give you one of my cards
         if _whose_turn:
             time.sleep(1)
+            print([f'{i + 1}{card[0]}' for i, card in enumerate(player)])
             ans = int(input('\nWhich card do you want to give? ')) - 1
-            pur_card = player.pop(ans)
+
+            pur_card = player.pop(ans % len(player))
             time.sleep(1.5), print(f'\nYou gave {pur_card[0]}')
         else:
             pur_card = random.choice(com_deck)
