@@ -127,7 +127,6 @@ def play_game():
 
     while p1_deck != [] and p2_deck != []:
         result = play_round(p1_deck, p2_deck)
-        print(result)
         time.sleep(2)
         count += 1
         game_count += 1
