@@ -21,9 +21,9 @@ import time
 print('''PEACE
 Shuffling the cards ...
     ''')
-time.sleep(6)
-print('Sharing the cards...')
 time.sleep(3)
+print('Sharing the cards...')
+time.sleep(2)
 
 # Setting up useful English expressions
 modifiers = ['One more', 'Another', 'Again!!!', 'Infinite', 'Brutal', 'Non stop', 'An extra', 'A further', 'World',
@@ -123,7 +123,7 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
 
 
 def play_game():
-    g_count = 0
+    game_count = 0
     count = 0
     result = 0
 
@@ -131,7 +131,7 @@ def play_game():
         result = play_round(p1_deck, p2_deck)
         time.sleep(2)
         count += 1
-        g_count += 1
+        game_count += 1
         if count >= 52:
             ask_shuffle = input(
                 "The game's not ending!, It might be annoying.Do you want to shuffle both of your cards?\n ")
@@ -140,14 +140,14 @@ def play_game():
                 random.shuffle(p2_deck)
                 time.sleep(0.5)
             count = 0
-        if g_count >= 100:
+        if game_count >= 100:
             ask_end = input('You have been playing for some time now. Do you want to end ?\n ')
             if ask_end in response:
                 print('Nice game')
                 break
             else:
                 print('Go Crazy')
-                g_count = 0
+                game_count = 0
                 time.sleep(0.5)
 
     if not result:
