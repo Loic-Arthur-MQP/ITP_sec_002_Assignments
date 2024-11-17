@@ -43,12 +43,11 @@ p1_deck = deck[:len(deck) // 2]
 p2_deck = deck[len(deck) // 2:]
 p1_quintuplets = []  # deck that holds the wars' card
 p2_quintuplets = []
-war_chain = [1]  # determines if cards are to be pop from players hand during war
+war_chain = [1]  # determines if cards are to be pop from players hand during war, []-> war chain, [1]-> no chain
 
 
 # Creating the game's functions and mechanism
 def card_comparison(p1_card: tuple, p2_card: tuple):
-    # noinspection PyTypeChecker
     higher_rank = max(p1_card[1], p2_card[1], key=ranks.index)
     if p1_card[1] == p2_card[1]:
         return 0
@@ -69,7 +68,7 @@ def play_round(player1_hand: list, player2_hand: list):
         p1_deck.extend([p2_card, p1_card])
     elif result == 2:
         p2_deck.extend([p1_card, p2_card])
-    else:
+    else:  # when result = 0
         time.sleep(0.5)
         print('\nWAR !!!!')
         time.sleep(0.5)
@@ -88,7 +87,8 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
         war_deck1.append(p1_card)
         war_deck2.append(p2_card)
     else:
-        war_chain.append(1)
+        war_chain.append(1)  # so that when it's already on war, players directly put faced down cards
+        # we don't want to append p1 and p2 to war deck when it's already there.
 
     if len(player1_hand) >= 4 and len(player2_hand) >= 4:
         for num in range(4):
@@ -102,7 +102,7 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
             return 0
         return 1 if len(rest1) > len(rest2) else 2
 
-    print(f'{war_deck1[-1]} ⚡🆚⚡ {war_deck2[-1]}')
+    print(f'{war_deck1[-1]} ⚡🆚⚡ {war_deck2[-1]}')  # the 4 card of war deck (face up card) fight together.
     result = card_comparison(war_deck1[-1], war_deck2[-1])
 
     if result == 0:
@@ -112,12 +112,10 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
         war(player1_hand, player2_hand, war_deck1[-1], war_deck2[-1], war_deck1, war_deck2)
     elif result == 1:
         p1_deck.extend(war_deck2 + war_deck1)
-        p1_quintuplets.clear()
-        p2_quintuplets.clear()
+        p1_quintuplets.clear(), p2_quintuplets.clear() # clear war deck for future fights
     elif result == 2:
         p2_deck.extend(war_deck1 + war_deck2)
-        p1_quintuplets.clear()
-        p2_quintuplets.clear()
+        p1_quintuplets.clear(), p2_quintuplets.clear()
 
     return result
 
@@ -129,6 +127,7 @@ def play_game():
 
     while p1_deck != [] and p2_deck != []:
         result = play_round(p1_deck, p2_deck)
+        print(result)
         time.sleep(2)
         count += 1
         game_count += 1
