@@ -36,14 +36,16 @@ response = ['YES', 'Yes', 'yes', 'yeah', 'Yeah', 'YEAH', 'y', 'Y', 'oui']
 ranks = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
 suits = ("hearts", "diamonds", "clubs", "spades")
 
-deck = [(suit, rank) for suit in suits for rank in ranks[:-2]]
+deck = [(suit, rank) for suit in suits for rank in ranks]
 random.shuffle(deck)
 
 p1_deck = deck[:len(deck) // 2]
 p2_deck = deck[len(deck) // 2:]
-p1_quintuplets = []  # deck that holds the wars' card
-p2_quintuplets = []
-war_chain = [1]  # determines if cards are to be pop from players hand during war, []-> war chain, [1]-> no chain
+
+p1_quintuplets, p2_quintuplets = [], []  # deck that holds the wars' cards
+
+no_war_chain = [1]  # determines if cards are to be pop from players hand during war, []-> war chain, [1]-> no chain
+# This is because when war
 
 
 # Creating the game's functions and mechanism
@@ -82,19 +84,22 @@ def play_round(player1_hand: list, player2_hand: list):
 def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
     time.sleep(0.5)
     print(f'{random.choice(modifiers2)}')
-    time.sleep(3.5)
-    if war_chain:
+    time.sleep(3)
+    if no_war_chain:
         war_deck1.append(p1_card)
         war_deck2.append(p2_card)
     else:
-        war_chain.append(1)  # so that when it's already on war, players directly put faced down cards
-        # we don't want to append p1 and p2 to war deck when it's already there.
+        no_war_chain.append(1)  # so that when it's already on war, players directly put faced down cards
+        # we don't want to append p1_card and p2_card to war deck when it's already there.
 
     if len(player1_hand) >= 4 and len(player2_hand) >= 4:
         for num in range(4):
             war_deck1.append(player1_hand.pop(0))
             war_deck2.append(player2_hand.pop(0))
     else:
+        """
+        In case of an infinite war, the play who stays with the maximum card wins 
+        """
         rest1 = [p1_deck.pop(0) for x in range(len(p1_deck))]
         rest2 = [p2_deck.pop(0) for x in range(len(p2_deck))]
 
@@ -106,13 +111,15 @@ def war(player1_hand, player2_hand, p1_card, p2_card, war_deck1, war_deck2):
     result = card_comparison(war_deck1[-1], war_deck2[-1])
 
     if result == 0:
-        war_chain.remove(1)
+        no_war_chain.remove(1)
+        # We remove here to enhance the next sequence of multiple wars if there is
         time.sleep(2)
         print(f'\n{random.choice(modifiers)} WAR !!!!')
+        # Here we use the last two last cards in the war deck since there were clashing
         war(player1_hand, player2_hand, war_deck1[-1], war_deck2[-1], war_deck1, war_deck2)
     elif result == 1:
         p1_deck.extend(war_deck2 + war_deck1)
-        p1_quintuplets.clear(), p2_quintuplets.clear() # clear war deck for future fights
+        p1_quintuplets.clear(), p2_quintuplets.clear()  # clear war deck for future fights
     elif result == 2:
         p2_deck.extend(war_deck1 + war_deck2)
         p1_quintuplets.clear(), p2_quintuplets.clear()
